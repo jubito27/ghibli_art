@@ -1,1 +1,21 @@
+name: Sync to Hugging Face
+on:
+  push:
+    branches: [ main ]  # Trigger on pushes to main branch
 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Push to Hugging Face
+        run: |
+          git remote add hf https://${{ secrets.abhishek2775 }}:${{ secrets.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 }}@huggingface.co/spaces/abhishek2775/ghibli_art_creation
+          git push hf main -f
